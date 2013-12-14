@@ -9,7 +9,23 @@ class FileController extends \BaseController {
 	 */
 	public function index()
 	{
-		//
+		$user_files = Auth::user()->files()->get()->all();
+
+		if(count($user_files) > 0)
+		{
+			echo '<ol>';
+			foreach($user_files as $file)
+			{
+				echo '<li>';
+				echo '<a href="' . asset($file->basedir . $file->filename) . '">' . $file->filename . '</a>';
+				echo '</li>';
+			}
+			echo '</ol>';
+		}
+		else
+		{
+			echo 'El usuario no tiene archivos';
+		}
 	}
 
 	/**
@@ -47,6 +63,9 @@ class FileController extends \BaseController {
 				$fileRecord->mime_type 	= $file->getMimeType();
 
 				$fileRecord->save();
+
+				//Asociando el archivo al usuario autenticado
+				Auth::user()->files()->attach( $fileRecord->id );
 
 				return Redirect::route('file.show', $fileRecord->id);
 			}

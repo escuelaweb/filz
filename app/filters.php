@@ -78,3 +78,11 @@ Route::filter('csrf', function()
 		throw new Illuminate\Session\TokenMismatchException;
 	}
 });
+
+Route::filter('count-access', function(){
+	if(Auth::check())
+	{
+		$access = New Access();
+		Auth::user()->accesses()->save($acces);
+	}
+});
