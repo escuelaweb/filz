@@ -26,7 +26,8 @@ Route::get('/', 'HomeController@showWelcome');
 Route::any('/usuario', 'HomeController@olakease');
 
 Route::get('/login', 'HomeController@login');
-Route::post('/authenticate', 'HomeController@authenticate');
+//Route::post('/authenticate', 'HomeController@authenticate');
+Route::post('/authenticate', array( 'uses' => 'HomeController@authenticate', 'after' => 'count-access'));
 
 Route::get('/main', array( 'uses' => 'HomeController@main', 'before' => 'auth'));
 Route::get('/logout', array('uses' => 'HomeController@logout', 'before' => 'auth'));

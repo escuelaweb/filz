@@ -83,6 +83,6 @@ Route::filter('count-access', function(){
 	if(Auth::check())
 	{
 		$access = New Access();
-		Auth::user()->accesses()->save($acces);
+		Auth::user()->accesses()->save($access);
 	}
 });
